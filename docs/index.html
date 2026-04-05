@@ -27,9 +27,9 @@
         <h1>&lt;image-editor&gt;</h1>
         <p class="tagline">A web component for cropping, rotating, filtering, resizing, and exporting images</p>
         <div class="hero-demo">
-          <image-editor style="height: 450px;"></image-editor>
+          <image-editor id="hero-editor" style="height: 450px;"></image-editor>
         </div>
-        <div class="hero-actions">
+        <div class="hero-actions" style="margin-top: 2rem;">
           <a href="demos.html" class="btn primary">View Demos</a>
           <a href="api.html" class="btn secondary">API Documentation</a>
         </div>
@@ -137,7 +137,72 @@
       const src = location.hostname === 'localhost' || location.hostname === '127.0.0.1'
         ? '/src/image-editor.js'
         : 'https://unpkg.com/@profpowell/image-editor';
-      import(/* @vite-ignore */ src);
+      await import(/* @vite-ignore */ src);
+
+      // Generate a sample landscape image and load it into the hero editor
+      await customElements.whenDefined('image-editor');
+      const editor = document.getElementById('hero-editor');
+      if (editor) {
+        const c = document.createElement('canvas');
+        c.width = 800; c.height = 500;
+        const ctx = c.getContext('2d');
+
+        // Sky gradient
+        const sky = ctx.createLinearGradient(0, 0, 0, 320);
+        sky.addColorStop(0, '#1a1a4e');
+        sky.addColorStop(0.3, '#2d3a8c');
+        sky.addColorStop(0.6, '#e88d4f');
+        sky.addColorStop(0.8, '#f4c673');
+        sky.addColorStop(1, '#fbe8b6');
+        ctx.fillStyle = sky;
+        ctx.fillRect(0, 0, 800, 320);
+
+        // Sun
+        const sun = ctx.createRadialGradient(400, 280, 10, 400, 280, 80);
+        sun.addColorStop(0, '#fffbe6');
+        sun.addColorStop(0.4, '#ffd966');
+        sun.addColorStop(1, 'rgba(244,198,115,0)');
+        ctx.fillStyle = sun;
+        ctx.beginPath(); ctx.arc(400, 280, 80, 0, Math.PI * 2); ctx.fill();
+
+        // Water
+        const water = ctx.createLinearGradient(0, 320, 0, 500);
+        water.addColorStop(0, '#e8a860');
+        water.addColorStop(0.3, '#4a6fa5');
+        water.addColorStop(1, '#1a2a50');
+        ctx.fillStyle = water;
+        ctx.fillRect(0, 320, 800, 180);
+
+        // Sun reflection on water
+        ctx.globalAlpha = 0.3;
+        const ref = ctx.createLinearGradient(370, 320, 430, 500);
+        ref.addColorStop(0, '#ffd966');
+        ref.addColorStop(1, 'rgba(255,217,102,0)');
+        ctx.fillStyle = ref;
+        ctx.fillRect(360, 320, 80, 180);
+        ctx.globalAlpha = 1;
+
+        // Mountains
+        ctx.fillStyle = '#2a2a5a';
+        ctx.beginPath();
+        ctx.moveTo(0, 320); ctx.lineTo(120, 220); ctx.lineTo(250, 300);
+        ctx.lineTo(350, 200); ctx.lineTo(450, 280); ctx.lineTo(550, 190);
+        ctx.lineTo(680, 260); ctx.lineTo(800, 230); ctx.lineTo(800, 320);
+        ctx.fill();
+
+        // Stars
+        ctx.fillStyle = '#ffffff';
+        for (let i = 0; i < 60; i++) {
+          const x = Math.random() * 800;
+          const y = Math.random() * 200;
+          const r = Math.random() * 1.5 + 0.5;
+          ctx.globalAlpha = Math.random() * 0.6 + 0.2;
+          ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+
+        c.toBlob((blob) => editor.loadImage(blob), 'image/png');
+      }
     </script>
     <script type="module" src="https://unpkg.com/@profpowell/code-block"></script>
     <script>
