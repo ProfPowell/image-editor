@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>image-editor — API Reference</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav>
+    <a href="index.html"><strong>image-editor</strong></a>
+    <a href="demos.html">Demos</a>
+    <a href="api.html">API</a>
+  </nav>
+
+  <h1>API Reference</h1>
+
+  <h2>Attributes</h2>
+  <table>
+    <thead>
+      <tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>src</code></td><td>string</td><td>—</td><td>URL of image to load</td></tr>
+      <tr><td><code>mode</code></td><td><code>'light'</code> | <code>'dark'</code></td><td>auto</td><td>Theme mode (auto-detects if omitted)</td></tr>
+      <tr><td><code>width</code></td><td>number</td><td>—</td><td>Constrain editor width in px</td></tr>
+      <tr><td><code>height</code></td><td>number</td><td>—</td><td>Constrain editor height in px</td></tr>
+      <tr><td><code>format</code></td><td><code>'png'</code> | <code>'jpeg'</code> | <code>'webp'</code></td><td><code>'png'</code></td><td>Default export format</td></tr>
+      <tr><td><code>quality</code></td><td>number (0–1)</td><td><code>0.92</code></td><td>Export quality for JPEG/WebP</td></tr>
+      <tr><td><code>max-history</code></td><td>number</td><td><code>50</code></td><td>Maximum undo steps</td></tr>
+      <tr><td><code>readonly</code></td><td>boolean</td><td><code>false</code></td><td>Disable all editing operations</td></tr>
+      <tr><td><code>no-toolbar</code></td><td>boolean</td><td><code>false</code></td><td>Hide toolbar for programmatic use</td></tr>
+      <tr><td><code>aspect-ratio</code></td><td>string</td><td>—</td><td>Lock crop to ratio (e.g. <code>'16:9'</code>)</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Properties (read-only)</h2>
+  <table>
+    <thead>
+      <tr><th>Property</th><th>Type</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>imageWidth</code></td><td>number</td><td>Current image pixel width</td></tr>
+      <tr><td><code>imageHeight</code></td><td>number</td><td>Current image pixel height</td></tr>
+      <tr><td><code>hasImage</code></td><td>boolean</td><td>Whether an image is loaded</td></tr>
+      <tr><td><code>isDirty</code></td><td>boolean</td><td>Whether edits have been made</td></tr>
+      <tr><td><code>canUndo</code></td><td>boolean</td><td>Whether undo is available</td></tr>
+      <tr><td><code>canRedo</code></td><td>boolean</td><td>Whether redo is available</td></tr>
+      <tr><td><code>zoomLevel</code></td><td>number</td><td>Current zoom (1 = 100%)</td></tr>
+      <tr><td><code>currentTool</code></td><td>string | null</td><td>Active tool name or null</td></tr>
+      <tr><td><code>historyLength</code></td><td>number</td><td>Number of history entries</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Methods</h2>
+  <table>
+    <thead>
+      <tr><th>Method</th><th>Returns</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>loadImage(src)</code></td><td><code>Promise&lt;void&gt;</code></td><td>Load image from URL, File, or Blob</td></tr>
+      <tr><td><code>crop(x, y, w, h)</code></td><td>void</td><td>Crop to specified pixel region</td></tr>
+      <tr><td><code>rotate(degrees)</code></td><td>void</td><td>Rotate by 90° increments</td></tr>
+      <tr><td><code>flipHorizontal()</code></td><td>void</td><td>Flip horizontally</td></tr>
+      <tr><td><code>flipVertical()</code></td><td>void</td><td>Flip vertically</td></tr>
+      <tr><td><code>resize(w, h)</code></td><td>void</td><td>Resize to specified dimensions</td></tr>
+      <tr><td><code>applyFilter(name, value)</code></td><td>void</td><td>Set a filter value (e.g. <code>'brightness'</code>, <code>1.2</code>)</td></tr>
+      <tr><td><code>resetFilters()</code></td><td>void</td><td>Reset all filters to defaults</td></tr>
+      <tr><td><code>undo()</code></td><td>void</td><td>Undo last operation</td></tr>
+      <tr><td><code>redo()</code></td><td>void</td><td>Redo last undone operation</td></tr>
+      <tr><td><code>reset()</code></td><td>void</td><td>Reset to original loaded image</td></tr>
+      <tr><td><code>zoomTo(level)</code></td><td>void</td><td>Set zoom level (1 = 100%)</td></tr>
+      <tr><td><code>zoomToFit()</code></td><td>void</td><td>Fit image to workspace</td></tr>
+      <tr><td><code>getBlob(format?, quality?)</code></td><td><code>Promise&lt;Blob&gt;</code></td><td>Get image as Blob</td></tr>
+      <tr><td><code>getDataURL(format?, quality?)</code></td><td>string</td><td>Get image as data URL</td></tr>
+      <tr><td><code>download(filename?, format?, quality?)</code></td><td>void</td><td>Trigger browser download</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Events</h2>
+  <table>
+    <thead>
+      <tr><th>Event</th><th>Detail</th><th>Fires when</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>image-load</code></td><td><code>{ width, height, src }</code></td><td>Image loaded successfully</td></tr>
+      <tr><td><code>image-load-error</code></td><td><code>{ src, error }</code></td><td>Image failed to load</td></tr>
+      <tr><td><code>image-edit</code></td><td><code>{ action, params }</code></td><td>Any edit applied</td></tr>
+      <tr><td><code>image-export</code></td><td><code>{ format, quality, size }</code></td><td>Image exported/downloaded</td></tr>
+      <tr><td><code>tool-change</code></td><td><code>{ tool, previous }</code></td><td>Active tool changed</td></tr>
+      <tr><td><code>zoom-change</code></td><td><code>{ level }</code></td><td>Zoom level changed</td></tr>
+      <tr><td><code>history-change</code></td><td><code>{ canUndo, canRedo, length }</code></td><td>History stack changed</td></tr>
+    </tbody>
+  </table>
+
+  <h2>CSS Custom Properties</h2>
+  <table>
+    <thead>
+      <tr><th>Property</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>--image-editor-bg</code></td><td><code>#ffffff</code></td><td>Editor background</td></tr>
+      <tr><td><code>--image-editor-border-color</code></td><td><code>#d1d5da</code></td><td>Border color</td></tr>
+      <tr><td><code>--image-editor-border-radius</code></td><td><code>8px</code></td><td>Corner radius</td></tr>
+      <tr><td><code>--image-editor-font-family</code></td><td><code>system-ui</code></td><td>UI font</td></tr>
+      <tr><td><code>--image-editor-text-color</code></td><td><code>#24292e</code></td><td>Text color</td></tr>
+      <tr><td><code>--image-editor-text-muted</code></td><td><code>#586069</code></td><td>Muted text color</td></tr>
+      <tr><td><code>--image-editor-margin</code></td><td><code>1rem 0</code></td><td>Outer margin</td></tr>
+      <tr><td><code>--image-editor-toolbar-bg</code></td><td><code>#f6f8fa</code></td><td>Toolbar background</td></tr>
+      <tr><td><code>--image-editor-toolbar-border</code></td><td><code>#d1d5da</code></td><td>Toolbar border</td></tr>
+      <tr><td><code>--image-editor-toolbar-padding</code></td><td><code>4px 8px</code></td><td>Toolbar padding</td></tr>
+      <tr><td><code>--image-editor-button-bg</code></td><td><code>transparent</code></td><td>Button background</td></tr>
+      <tr><td><code>--image-editor-button-color</code></td><td><code>#586069</code></td><td>Button icon color</td></tr>
+      <tr><td><code>--image-editor-button-hover-bg</code></td><td><code>#f3f4f6</code></td><td>Button hover background</td></tr>
+      <tr><td><code>--image-editor-button-active-bg</code></td><td><code>#e5e7eb</code></td><td>Active button background</td></tr>
+      <tr><td><code>--image-editor-button-active-color</code></td><td><code>#2563eb</code></td><td>Active button color</td></tr>
+      <tr><td><code>--image-editor-button-radius</code></td><td><code>4px</code></td><td>Button corner radius</td></tr>
+      <tr><td><code>--image-editor-button-disabled-opacity</code></td><td><code>0.4</code></td><td>Disabled button opacity</td></tr>
+      <tr><td><code>--image-editor-workspace-bg</code></td><td><code>#e5e5e5</code></td><td>Workspace background</td></tr>
+      <tr><td><code>--image-editor-workspace-check-color</code></td><td><code>#cccccc</code></td><td>Checkerboard color</td></tr>
+      <tr><td><code>--image-editor-context-bg</code></td><td><code>#f6f8fa</code></td><td>Context bar background</td></tr>
+      <tr><td><code>--image-editor-context-border</code></td><td><code>#d1d5da</code></td><td>Context bar border</td></tr>
+      <tr><td><code>--image-editor-accent-color</code></td><td><code>#2563eb</code></td><td>Accent/primary color</td></tr>
+      <tr><td><code>--image-editor-focus-color</code></td><td><code>#2563eb</code></td><td>Focus ring color</td></tr>
+      <tr><td><code>--image-editor-crop-border</code></td><td><code>#2563eb</code></td><td>Crop selection border</td></tr>
+      <tr><td><code>--image-editor-crop-handle-color</code></td><td><code>#2563eb</code></td><td>Crop handle color</td></tr>
+      <tr><td><code>--image-editor-crop-overlay</code></td><td><code>rgba(0,0,0,0.5)</code></td><td>Crop dim overlay</td></tr>
+      <tr><td><code>--image-editor-crop-grid-color</code></td><td><code>rgba(255,255,255,0.3)</code></td><td>Crop grid color</td></tr>
+      <tr><td><code>--image-editor-status-bg</code></td><td><code>#f6f8fa</code></td><td>Status bar background</td></tr>
+      <tr><td><code>--image-editor-status-color</code></td><td><code>#586069</code></td><td>Status bar text color</td></tr>
+      <tr><td><code>--image-editor-status-font-size</code></td><td><code>0.75rem</code></td><td>Status bar font size</td></tr>
+      <tr><td><code>--image-editor-slider-track</code></td><td><code>#d1d5da</code></td><td>Slider track color</td></tr>
+      <tr><td><code>--image-editor-slider-thumb</code></td><td><code>#2563eb</code></td><td>Slider thumb color</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Filter Names</h2>
+  <table>
+    <thead>
+      <tr><th>Name</th><th>Range</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>brightness</code></td><td>0.5 – 2</td><td>1</td><td>Image brightness</td></tr>
+      <tr><td><code>contrast</code></td><td>0.5 – 2</td><td>1</td><td>Image contrast</td></tr>
+      <tr><td><code>saturate</code></td><td>0 – 3</td><td>1</td><td>Color saturation</td></tr>
+      <tr><td><code>blur</code></td><td>0 – 10px</td><td>0</td><td>Gaussian blur</td></tr>
+      <tr><td><code>grayscale</code></td><td>0 – 100%</td><td>0</td><td>Grayscale conversion</td></tr>
+      <tr><td><code>sepia</code></td><td>0 – 100%</td><td>0</td><td>Sepia tone</td></tr>
+    </tbody>
+  </table>
+</body>
+</html>

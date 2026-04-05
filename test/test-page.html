@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>image-editor test page</title>
+  <script type="module" src="/src/image-editor.js"></script>
+  <script type="module" src="/src/image-convert.js"></script>
+  <style>
+    body {
+      margin: 2rem;
+      font-family: system-ui, sans-serif;
+    }
+    .test-container {
+      margin-bottom: 2rem;
+      border: 1px dashed #ccc;
+      padding: 1rem;
+    }
+    h3 { margin: 0 0 0.5rem; }
+  </style>
+</head>
+<body>
+  <!-- Test 1: Default (empty) -->
+  <div class="test-container">
+    <h3>Default (empty)</h3>
+    <image-editor id="test-default"></image-editor>
+  </div>
+
+  <!-- Test 2: With src attribute -->
+  <div class="test-container">
+    <h3>With src</h3>
+    <image-editor id="test-src" src="/test/fixtures/sample.png"></image-editor>
+  </div>
+
+  <!-- Test 3: Dark mode -->
+  <div class="test-container">
+    <h3>Dark mode</h3>
+    <image-editor id="test-dark" mode="dark"></image-editor>
+  </div>
+
+  <!-- Test 4: Light mode -->
+  <div class="test-container">
+    <h3>Light mode</h3>
+    <image-editor id="test-light" mode="light"></image-editor>
+  </div>
+
+  <!-- Test 5: Readonly -->
+  <div class="test-container">
+    <h3>Readonly</h3>
+    <image-editor id="test-readonly" readonly></image-editor>
+  </div>
+
+  <!-- Test 6: No toolbar -->
+  <div class="test-container">
+    <h3>No toolbar</h3>
+    <image-editor id="test-no-toolbar" no-toolbar></image-editor>
+  </div>
+
+  <!-- Test 7: With format and quality -->
+  <div class="test-container">
+    <h3>JPEG format, 80% quality</h3>
+    <image-editor id="test-format" format="jpeg" quality="0.8"></image-editor>
+  </div>
+
+  <!-- Test 8: Constrained size -->
+  <div class="test-container">
+    <h3>Constrained size (400x300)</h3>
+    <image-editor id="test-size" width="400" height="300"></image-editor>
+  </div>
+
+  <!-- Test 9: With aspect ratio -->
+  <div class="test-container">
+    <h3>Locked aspect ratio (16:9)</h3>
+    <image-editor id="test-aspect" aspect-ratio="16:9"></image-editor>
+  </div>
+
+  <!-- Test 10: Custom slot content -->
+  <div class="test-container">
+    <h3>Custom slot content</h3>
+    <image-editor id="test-slot">
+      <p>Custom drop zone message goes here</p>
+    </image-editor>
+  </div>
+
+  <!-- ============ image-convert tests ============ -->
+
+  <!-- Convert Test 1: Default -->
+  <div class="test-container">
+    <h3>image-convert: Default</h3>
+    <image-convert id="convert-default"></image-convert>
+  </div>
+
+  <!-- Convert Test 2: JPEG format -->
+  <div class="test-container">
+    <h3>image-convert: JPEG default</h3>
+    <image-convert id="convert-jpeg" format="jpeg"></image-convert>
+  </div>
+
+  <!-- Convert Test 3: Dark mode -->
+  <div class="test-container">
+    <h3>image-convert: Dark mode</h3>
+    <image-convert id="convert-dark" mode="dark"></image-convert>
+  </div>
+
+  <!-- Convert Test 4: Custom slot -->
+  <div class="test-container">
+    <h3>image-convert: Custom slot</h3>
+    <image-convert id="convert-slot">
+      <p>Custom message here</p>
+    </image-convert>
+  </div>
+
+  <!-- Hidden canvas for generating test images -->
+  <canvas id="test-canvas" width="200" height="150" style="display:none;"></canvas>
+  <script>
+    // Generate a simple test image as a data URL
+    const canvas = document.getElementById('test-canvas')
+    const ctx = canvas.getContext('2d')
+    // Red/blue gradient
+    const grad = ctx.createLinearGradient(0, 0, 200, 150)
+    grad.addColorStop(0, '#ff0000')
+    grad.addColorStop(1, '#0000ff')
+    ctx.fillStyle = grad
+    ctx.fillRect(0, 0, 200, 150)
+    // White circle
+    ctx.fillStyle = '#ffffff'
+    ctx.beginPath()
+    ctx.arc(100, 75, 30, 0, Math.PI * 2)
+    ctx.fill()
+    window.__testImageDataURL = canvas.toDataURL('image/png')
+  </script>
+</body>
+</html>

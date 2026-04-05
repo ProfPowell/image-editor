@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>image-editor — Demos</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="/src/image-editor.js"></script>
+</head>
+<body>
+  <nav>
+    <a href="index.html"><strong>image-editor</strong></a>
+    <a href="demos.html">Demos</a>
+    <a href="api.html">API</a>
+  </nav>
+
+  <h1>Demos</h1>
+
+  <div class="demo-section">
+    <h3>Default</h3>
+    <p>Empty editor — drop an image or click Open.</p>
+    <image-editor></image-editor>
+  </div>
+
+  <div class="demo-section">
+    <h3>Dark Mode</h3>
+    <image-editor mode="dark"></image-editor>
+  </div>
+
+  <div class="demo-section">
+    <h3>JPEG Export at 80% Quality</h3>
+    <image-editor format="jpeg" quality="0.8"></image-editor>
+  </div>
+
+  <div class="demo-section">
+    <h3>Readonly (view only)</h3>
+    <image-editor readonly></image-editor>
+  </div>
+
+  <div class="demo-section">
+    <h3>No Toolbar (API-driven)</h3>
+    <image-editor no-toolbar id="api-demo"></image-editor>
+    <p>
+      <button onclick="document.getElementById('api-demo').loadImage('https://picsum.photos/400/300')">Load via API</button>
+    </p>
+  </div>
+
+  <div class="demo-section">
+    <h3>Constrained Size (400 × 300)</h3>
+    <image-editor width="400" height="300"></image-editor>
+  </div>
+
+  <div class="demo-section">
+    <h3>Custom Drop Zone Message</h3>
+    <image-editor>
+      <p style="font-size:1.25rem;">📸 Drag your photo here!</p>
+    </image-editor>
+  </div>
+
+  <div class="demo-section">
+    <h3>Locked to 16:9 Crop</h3>
+    <image-editor aspect-ratio="16:9"></image-editor>
+  </div>
+
+  <div class="demo-section">
+    <h3>Custom Theme</h3>
+    <image-editor
+      style="
+        --image-editor-accent-color: #8b5cf6;
+        --image-editor-toolbar-bg: #faf5ff;
+        --image-editor-border-color: #c4b5fd;
+        --image-editor-button-active-color: #8b5cf6;
+      "
+    ></image-editor>
+  </div>
+
+</body>
+</html>
