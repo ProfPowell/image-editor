@@ -1,0 +1,345 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/image-editor.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "ImageEditor",
+          "members": [
+            {
+              "kind": "field",
+              "name": "src"
+            },
+            {
+              "kind": "field",
+              "name": "mode"
+            },
+            {
+              "kind": "field",
+              "name": "format"
+            },
+            {
+              "kind": "field",
+              "name": "quality"
+            },
+            {
+              "kind": "field",
+              "name": "maxHistory"
+            },
+            {
+              "kind": "field",
+              "name": "readonly"
+            },
+            {
+              "kind": "field",
+              "name": "noToolbar"
+            },
+            {
+              "kind": "field",
+              "name": "aspectRatio"
+            },
+            {
+              "kind": "field",
+              "name": "imageWidth",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "imageHeight",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "hasImage",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "isDirty",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "canUndo",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "canRedo",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "zoomLevel",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "currentTool",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "historyLength",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "sourceFormat",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "exifData",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "loadImage",
+              "parameters": [
+                {
+                  "name": "source"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "zoomTo",
+              "parameters": [
+                {
+                  "name": "level"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "zoomToFit"
+            },
+            {
+              "kind": "method",
+              "name": "undo"
+            },
+            {
+              "kind": "method",
+              "name": "redo"
+            },
+            {
+              "kind": "method",
+              "name": "reset"
+            },
+            {
+              "kind": "method",
+              "name": "rotate",
+              "parameters": [
+                {
+                  "name": "degrees"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "flipHorizontal"
+            },
+            {
+              "kind": "method",
+              "name": "flipVertical"
+            },
+            {
+              "kind": "method",
+              "name": "resize",
+              "parameters": [
+                {
+                  "name": "w"
+                },
+                {
+                  "name": "h"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "crop",
+              "parameters": [
+                {
+                  "name": "x"
+                },
+                {
+                  "name": "y"
+                },
+                {
+                  "name": "w"
+                },
+                {
+                  "name": "h"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "applyFilter",
+              "parameters": [
+                {
+                  "name": "name"
+                },
+                {
+                  "name": "value"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "resetFilters"
+            },
+            {
+              "kind": "method",
+              "name": "getDataURL",
+              "parameters": [
+                {
+                  "name": "format"
+                },
+                {
+                  "name": "quality"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "getBlob",
+              "parameters": [
+                {
+                  "name": "format"
+                },
+                {
+                  "name": "quality"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "download",
+              "parameters": [
+                {
+                  "name": "filename"
+                },
+                {
+                  "name": "format"
+                },
+                {
+                  "name": "quality"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "render"
+            }
+          ],
+          "events": [
+            {
+              "name": "image-load",
+              "type": {
+                "text": "CustomEvent"
+              }
+            },
+            {
+              "name": "image-load-error",
+              "type": {
+                "text": "CustomEvent"
+              }
+            },
+            {
+              "name": "zoom-change",
+              "type": {
+                "text": "CustomEvent"
+              }
+            },
+            {
+              "name": "history-change",
+              "type": {
+                "text": "CustomEvent"
+              }
+            },
+            {
+              "name": "image-edit",
+              "type": {
+                "text": "CustomEvent"
+              }
+            },
+            {
+              "name": "image-export",
+              "type": {
+                "text": "CustomEvent"
+              }
+            },
+            {
+              "name": "tool-change",
+              "type": {
+                "text": "CustomEvent"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "src"
+            },
+            {
+              "name": "mode"
+            },
+            {
+              "name": "width"
+            },
+            {
+              "name": "height"
+            },
+            {
+              "name": "format"
+            },
+            {
+              "name": "quality"
+            },
+            {
+              "name": "max-history"
+            },
+            {
+              "name": "readonly"
+            },
+            {
+              "name": "no-toolbar"
+            },
+            {
+              "name": "aspect-ratio"
+            }
+          ],
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "tagName": "image-editor",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "image-editor",
+          "declaration": {
+            "name": "ImageEditor",
+            "module": "src/image-editor.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ImageEditor",
+          "declaration": {
+            "name": "ImageEditor",
+            "module": "src/image-editor.js"
+          }
+        }
+      ]
+    }
+  ]
+}

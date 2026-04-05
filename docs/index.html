@@ -1,60 +1,163 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>image-editor — Web Component</title>
-  <link rel="stylesheet" href="styles.css">
-  <script type="module" src="/src/image-editor.js"></script>
-</head>
-<body>
-  <nav>
-    <a href="index.html"><strong>image-editor</strong></a>
-    <a href="demos.html">Demos</a>
-    <a href="api.html">API</a>
-  </nav>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>image-editor - Image editing web components</title>
+    <meta name="description" content="A web component for cropping, rotating, filtering, resizing, and exporting images. Zero dependencies, fully themeable." />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav>
+        <a href="index.html" class="nav-brand">&lt;image-editor&gt;</a>
+        <div class="nav-links">
+          <a href="index.html" class="active">Home</a>
+          <a href="demos.html">Demos</a>
+          <a href="api.html">API</a>
+          <a href="convert.html">Convert</a>
+          <a href="https://github.com/ProfPowell/image-editor" target="_blank" rel="noopener">GitHub</a>
+          <button class="theme-toggle" aria-label="Toggle theme">🌓</button>
+        </div>
+      </nav>
+    </header>
 
-  <h1>&lt;image-editor&gt;</h1>
-  <p>A basic image editor web component for cropping, rotating, filtering, resizing, and exporting images. Built with vanilla JavaScript and no dependencies.</p>
+    <main>
+      <section class="hero">
+        <h1>&lt;image-editor&gt;</h1>
+        <p class="tagline">A web component for cropping, rotating, filtering, resizing, and exporting images</p>
+        <div class="hero-demo">
+          <image-editor style="height: 450px;"></image-editor>
+        </div>
+        <div class="hero-actions">
+          <a href="demos.html" class="btn primary">View Demos</a>
+          <a href="api.html" class="btn secondary">API Documentation</a>
+        </div>
+      </section>
 
-  <h2>Features</h2>
-  <ul>
-    <li>Crop with aspect ratio presets and draggable handles</li>
-    <li>Rotate 90° left/right and flip horizontal/vertical</li>
-    <li>Resize with aspect ratio lock and common presets</li>
-    <li>Filters: brightness, contrast, saturation, blur, grayscale, sepia</li>
-    <li>Undo/redo with configurable history depth</li>
-    <li>Export as PNG, JPEG, or WebP with quality control</li>
-    <li>Zoom and pan for detailed editing</li>
-    <li>Drag &amp; drop or file picker image input</li>
-    <li>Light/dark mode with auto-detection</li>
-    <li>Full keyboard accessibility</li>
-    <li>35+ CSS custom properties for theming</li>
-    <li>Vanilla Breeze compatible</li>
-  </ul>
+      <section>
+        <h2>Features</h2>
+        <div class="feature-grid">
+          <a href="demos.html#crop" class="feature-card">
+            <h3>Crop &amp; Resize</h3>
+            <p>Drag handles to crop with aspect ratio presets. Resize to exact dimensions with aspect lock.</p>
+          </a>
+          <a href="demos.html#rotate" class="feature-card">
+            <h3>Rotate &amp; Flip</h3>
+            <p>Rotate 90° in either direction. Flip horizontally or vertically.</p>
+          </a>
+          <a href="demos.html#filters" class="feature-card">
+            <h3>Filters</h3>
+            <p>Adjust brightness, contrast, saturation, blur, grayscale, and sepia with live preview.</p>
+          </a>
+          <a href="demos.html#undo-redo" class="feature-card">
+            <h3>Undo / Redo</h3>
+            <p>Full history stack with configurable depth. Never lose your work.</p>
+          </a>
+          <a href="demos.html#export" class="feature-card">
+            <h3>Multi-Format Export</h3>
+            <p>Export as PNG, JPEG, or WebP with quality control. Download or get as Blob/Data URL.</p>
+          </a>
+          <a href="demos.html#zoom" class="feature-card">
+            <h3>Zoom &amp; Pan</h3>
+            <p>Scroll to zoom, drag to pan. Fit-to-view and zoom-to-level controls.</p>
+          </a>
+          <a href="api.html#css-properties" class="feature-card">
+            <h3>Fully Themeable</h3>
+            <p>35+ CSS custom properties for complete visual customization. Light and dark mode support.</p>
+          </a>
+          <a href="convert.html" class="feature-card">
+            <h3>Format Converter</h3>
+            <p>Companion &lt;image-convert&gt; component for drag-and-drop format conversion with EXIF stripping.</p>
+          </a>
+        </div>
+      </section>
 
-  <h2>Quick Start</h2>
+      <section class="quick-start">
+        <h2>Quick Start</h2>
 
-  <h3>Installation</h3>
-  <pre><code>npm install @profpowell/image-editor</code></pre>
+        <h3>Installation</h3>
+        <p>Install via npm:</p>
+        <code-block language="bash">npm install @profpowell/image-editor</code-block>
 
-  <h3>Usage</h3>
-  <pre><code>&lt;script type="module"&gt;
-  import '@profpowell/image-editor'
-&lt;/script&gt;
+        <p>Or include via CDN:</p>
+        <code-block language="html">&lt;script type="module" src="https://unpkg.com/@profpowell/image-editor"&gt;&lt;/script&gt;</code-block>
 
-&lt;image-editor&gt;&lt;/image-editor&gt;</code></pre>
+        <h3>Basic Usage</h3>
+        <code-block language="html">&lt;image-editor&gt;&lt;/image-editor&gt;</code-block>
 
-  <h3>With a pre-loaded image</h3>
-  <pre><code>&lt;image-editor src="photo.jpg"&gt;&lt;/image-editor&gt;</code></pre>
+        <h3>With a Pre-loaded Image</h3>
+        <code-block language="html">&lt;image-editor src="photo.jpg"&gt;&lt;/image-editor&gt;</code-block>
 
-  <h3>Dark mode with JPEG export</h3>
-  <pre><code>&lt;image-editor mode="dark" format="jpeg" quality="0.85"&gt;&lt;/image-editor&gt;</code></pre>
+        <h3>Dark Mode with JPEG Export</h3>
+        <code-block language="html">&lt;image-editor mode="dark" format="jpeg" quality="0.85"&gt;&lt;/image-editor&gt;</code-block>
 
-  <h2>Live Demo</h2>
-  <div class="demo-section">
-    <image-editor style="height: 450px;"></image-editor>
-  </div>
+        <div class="hero-actions">
+          <a href="demos.html" class="btn primary">See All Demos</a>
+          <a href="api.html" class="btn secondary">Full API Reference</a>
+        </div>
+      </section>
 
-</body>
+      <section>
+        <h2>Related Components</h2>
+        <p>Part of the ProfPowell vanilla web components suite:</p>
+        <div class="related-grid">
+          <a href="https://profpowell.github.io/browser-window/" class="related-card">
+            <strong>&lt;browser-window&gt;</strong>
+            Safari-style browser window for demos
+          </a>
+          <a href="https://profpowell.github.io/code-block/" class="related-card">
+            <strong>&lt;code-block&gt;</strong>
+            Syntax highlighting with copy button
+          </a>
+          <a href="https://profpowell.github.io/terminal-window/" class="related-card">
+            <strong>&lt;terminal-window&gt;</strong>
+            Interactive terminal emulator
+          </a>
+          <a href="https://profpowell.github.io/browser-console/" class="related-card">
+            <strong>&lt;browser-console&gt;</strong>
+            Console log display component
+          </a>
+          <a href="https://profpowell.github.io/http-component/" class="related-card">
+            <strong>&lt;http-component&gt;</strong>
+            HTTP request/response viewer
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        MIT License &middot;
+        <a href="https://github.com/ProfPowell/image-editor" target="_blank" rel="noopener">View on GitHub</a>
+      </p>
+    </footer>
+
+    <script type="module">
+      const src = location.hostname === 'localhost' || location.hostname === '127.0.0.1'
+        ? '/src/image-editor.js'
+        : 'https://unpkg.com/@profpowell/image-editor';
+      import(/* @vite-ignore */ src);
+    </script>
+    <script type="module" src="https://unpkg.com/@profpowell/code-block"></script>
+    <script>
+      // Theme toggle
+      (function() {
+        const toggle = document.querySelector('.theme-toggle');
+        const storageKey = 'image-editor-theme';
+
+        // Load saved theme
+        const saved = localStorage.getItem(storageKey);
+        if (saved === 'dark') {
+          document.body.classList.add('dark');
+        }
+
+        toggle?.addEventListener('click', () => {
+          document.body.classList.toggle('dark');
+          const isDark = document.body.classList.contains('dark');
+          localStorage.setItem(storageKey, isDark ? 'dark' : 'light');
+        });
+      })();
+    </script>
+  </body>
 </html>

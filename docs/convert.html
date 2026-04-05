@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>image-convert - Format Converter Component</title>
+    <meta name="description" content="A drag-and-drop image format converter web component. Convert between PNG, JPEG, WebP, and AVIF with EXIF stripping." />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav>
+        <a href="index.html" class="nav-brand">&lt;image-editor&gt;</a>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="demos.html">Demos</a>
+          <a href="api.html">API</a>
+          <a href="convert.html" class="active">Convert</a>
+          <a href="https://github.com/ProfPowell/image-editor" target="_blank" rel="noopener">GitHub</a>
+          <button class="theme-toggle" aria-label="Toggle theme">🌓</button>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>&lt;image-convert&gt;</h1>
+        <p class="tagline">A drag-and-drop image format converter with EXIF stripping and auto-detection</p>
+        <div class="hero-demo">
+          <image-convert></image-convert>
+        </div>
+        <div class="hero-actions">
+          <a href="#demos" class="btn primary">See Demos</a>
+          <a href="#api" class="btn secondary">API Reference</a>
+        </div>
+      </section>
+
+      <section class="quick-start">
+        <h2>Quick Start</h2>
+
+        <h3>Installation</h3>
+        <p>The converter is included in the <code>@profpowell/image-editor</code> package:</p>
+        <code-block language="bash">npm install @profpowell/image-editor</code-block>
+
+        <h3>Import the Converter</h3>
+        <code-block language="html">&lt;script type="module"&gt;
+  import '@profpowell/image-editor/convert'
+&lt;/script&gt;
+
+&lt;image-convert&gt;&lt;/image-convert&gt;</code-block>
+
+        <p>Or via CDN:</p>
+        <code-block language="html">&lt;script type="module" src="https://unpkg.com/@profpowell/image-editor/dist/image-convert.js"&gt;&lt;/script&gt;</code-block>
+      </section>
+
+      <section>
+        <h2>Features</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h3>Format Conversion</h3>
+            <p>Convert between PNG, JPEG, WebP, and AVIF (when browser supports it).</p>
+          </div>
+          <div class="feature-card">
+            <h3>EXIF Stripping</h3>
+            <p>Automatically strip EXIF metadata for privacy. Toggle with the strip-metadata attribute.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Format Detection</h3>
+            <p>Detects input format via magic bytes, not just file extension. Shows source and output info.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Quality Control</h3>
+            <p>Adjustable quality slider for lossy formats with live file size estimation.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="demos">
+        <h2>Demos</h2>
+
+        <div class="demo-section">
+          <h3>Default Converter</h3>
+          <p class="demo-description">
+            Drop an image or click to select. Choose output format and quality, then download.
+          </p>
+          <image-convert></image-convert>
+          <code-block language="html" class="demo-code">&lt;image-convert&gt;&lt;/image-convert&gt;</code-block>
+        </div>
+
+        <div class="demo-section">
+          <h3>WebP Output with Metadata Stripping</h3>
+          <p class="demo-description">
+            Pre-configured to output WebP at 80% quality with EXIF metadata stripped.
+          </p>
+          <image-convert format="webp" quality="0.8" strip-metadata></image-convert>
+          <code-block language="html" class="demo-code">&lt;image-convert format="webp" quality="0.8" strip-metadata&gt;&lt;/image-convert&gt;</code-block>
+        </div>
+
+        <div class="demo-section">
+          <h3>Dark Mode</h3>
+          <image-convert mode="dark"></image-convert>
+          <code-block language="html" class="demo-code">&lt;image-convert mode="dark"&gt;&lt;/image-convert&gt;</code-block>
+        </div>
+      </section>
+
+      <section id="api">
+        <h2>API Reference</h2>
+
+        <h3>Attributes</h3>
+        <table class="api-table">
+          <thead>
+            <tr>
+              <th>Attribute</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>mode</code></td>
+              <td><code>'light'</code> | <code>'dark'</code></td>
+              <td>auto</td>
+              <td>Theme mode. Auto-detects page-level dark mode when omitted.</td>
+            </tr>
+            <tr>
+              <td><code>format</code></td>
+              <td><code>'png'</code> | <code>'jpeg'</code> | <code>'webp'</code> | <code>'avif'</code></td>
+              <td><code>'png'</code></td>
+              <td>Default output format. AVIF availability is auto-detected.</td>
+            </tr>
+            <tr>
+              <td><code>quality</code></td>
+              <td>number (0&ndash;1)</td>
+              <td><code>0.85</code></td>
+              <td>Export quality for lossy formats (JPEG/WebP/AVIF).</td>
+            </tr>
+            <tr>
+              <td><code>strip-metadata</code></td>
+              <td>boolean</td>
+              <td><code>true</code></td>
+              <td>Strip EXIF metadata from converted images.</td>
+            </tr>
+            <tr>
+              <td><code>accept</code></td>
+              <td>string</td>
+              <td><code>'image/*'</code></td>
+              <td>Accepted file types for the file picker.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Events</h3>
+        <table class="api-table">
+          <thead>
+            <tr>
+              <th>Event</th>
+              <th>Detail</th>
+              <th>Fires when</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>convert-complete</code></td>
+              <td><code>{ format, quality, size }</code></td>
+              <td>Conversion and download completes</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>CSS Custom Properties</h3>
+        <table class="api-table">
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>--image-convert-bg</code></td>
+              <td>Component background</td>
+            </tr>
+            <tr>
+              <td><code>--image-convert-border-color</code></td>
+              <td>Border color</td>
+            </tr>
+            <tr>
+              <td><code>--image-convert-accent-color</code></td>
+              <td>Accent/primary color</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>Related</h2>
+        <p>The <code>&lt;image-convert&gt;</code> component is a companion to the full <a href="index.html">&lt;image-editor&gt;</a> component. Use the editor for cropping, rotating, filtering, and resizing. Use the converter for quick format changes and metadata stripping.</p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        MIT License &middot;
+        <a href="https://github.com/ProfPowell/image-editor" target="_blank" rel="noopener">View on GitHub</a>
+      </p>
+    </footer>
+
+    <script type="module">
+      const base = location.hostname === 'localhost' || location.hostname === '127.0.0.1'
+        ? '/src/image-convert.js'
+        : 'https://unpkg.com/@profpowell/image-editor/dist/image-convert.js';
+      import(/* @vite-ignore */ base);
+    </script>
+    <script type="module" src="https://unpkg.com/@profpowell/code-block"></script>
+    <script>
+      // Theme toggle
+      (function() {
+        const toggle = document.querySelector('.theme-toggle');
+        const storageKey = 'image-editor-theme';
+
+        const saved = localStorage.getItem(storageKey);
+        if (saved === 'dark') {
+          document.body.classList.add('dark');
+        }
+
+        toggle?.addEventListener('click', () => {
+          document.body.classList.toggle('dark');
+          const isDark = document.body.classList.contains('dark');
+          localStorage.setItem(storageKey, isDark ? 'dark' : 'light');
+        });
+      })();
+    </script>
+  </body>
+</html>

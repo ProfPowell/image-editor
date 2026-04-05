@@ -1,78 +1,251 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>image-editor — Demos</title>
-  <link rel="stylesheet" href="styles.css">
-  <script type="module" src="/src/image-editor.js"></script>
-</head>
-<body>
-  <nav>
-    <a href="index.html"><strong>image-editor</strong></a>
-    <a href="demos.html">Demos</a>
-    <a href="api.html">API</a>
-  </nav>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Demos - image-editor</title>
+    <meta name="description" content="Interactive demos showcasing the image-editor web component features." />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav>
+        <a href="index.html" class="nav-brand">&lt;image-editor&gt;</a>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="demos.html" class="active">Demos</a>
+          <a href="api.html">API</a>
+          <a href="convert.html">Convert</a>
+          <a href="https://github.com/ProfPowell/image-editor" target="_blank" rel="noopener">GitHub</a>
+          <button class="theme-toggle" aria-label="Toggle theme">🌓</button>
+        </div>
+      </nav>
+    </header>
 
-  <h1>Demos</h1>
+    <main>
+      <section class="hero">
+        <h1>Interactive Demos</h1>
+        <p class="tagline">Explore all the features of the &lt;image-editor&gt; component</p>
+      </section>
 
-  <div class="demo-section">
-    <h3>Default</h3>
-    <p>Empty editor — drop an image or click Open.</p>
-    <image-editor></image-editor>
-  </div>
+      <section id="default" class="demo-section">
+        <h2>Default Editor</h2>
+        <p class="demo-description">
+          Empty editor with drag-and-drop zone. Drop an image or click <strong>Open</strong> to get started.
+        </p>
+        <image-editor></image-editor>
+        <code-block language="html" class="demo-code">&lt;image-editor&gt;&lt;/image-editor&gt;</code-block>
+      </section>
 
-  <div class="demo-section">
-    <h3>Dark Mode</h3>
-    <image-editor mode="dark"></image-editor>
-  </div>
+      <section id="dark-mode" class="demo-section">
+        <h2>Dark Mode</h2>
+        <p class="demo-description">
+          Use <code>mode="dark"</code> to pin the editor to dark theme regardless of page settings.
+        </p>
+        <image-editor mode="dark"></image-editor>
+        <code-block language="html" class="demo-code">&lt;image-editor mode="dark"&gt;&lt;/image-editor&gt;</code-block>
+      </section>
 
-  <div class="demo-section">
-    <h3>JPEG Export at 80% Quality</h3>
-    <image-editor format="jpeg" quality="0.8"></image-editor>
-  </div>
+      <section id="export" class="demo-section">
+        <h2>JPEG Export at 80% Quality</h2>
+        <p class="demo-description">
+          Set the default export format and quality with the <code>format</code> and <code>quality</code> attributes.
+        </p>
+        <image-editor format="jpeg" quality="0.8"></image-editor>
+        <code-block language="html" class="demo-code">&lt;image-editor format="jpeg" quality="0.8"&gt;&lt;/image-editor&gt;</code-block>
+      </section>
 
-  <div class="demo-section">
-    <h3>Readonly (view only)</h3>
-    <image-editor readonly></image-editor>
-  </div>
+      <section id="readonly" class="demo-section">
+        <h2>Read-only Mode</h2>
+        <p class="demo-description">
+          The <code>readonly</code> attribute disables all editing tools. Useful for displaying images with zoom/pan only.
+        </p>
+        <image-editor readonly></image-editor>
+        <code-block language="html" class="demo-code">&lt;image-editor readonly&gt;&lt;/image-editor&gt;</code-block>
+      </section>
 
-  <div class="demo-section">
-    <h3>No Toolbar (API-driven)</h3>
-    <image-editor no-toolbar id="api-demo"></image-editor>
-    <p>
-      <button onclick="document.getElementById('api-demo').loadImage('https://picsum.photos/400/300')">Load via API</button>
-    </p>
-  </div>
+      <section id="api-driven" class="demo-section">
+        <h2>No Toolbar (API-driven)</h2>
+        <p class="demo-description">
+          Hide the toolbar with <code>no-toolbar</code> and drive the editor entirely through JavaScript.
+        </p>
+        <image-editor no-toolbar id="api-demo"></image-editor>
+        <code-block language="html" class="demo-code">&lt;image-editor no-toolbar id="editor"&gt;&lt;/image-editor&gt;
 
-  <div class="demo-section">
-    <h3>Constrained Size (400 × 300)</h3>
-    <image-editor width="400" height="300"></image-editor>
-  </div>
+&lt;script&gt;
+  const editor = document.getElementById('editor')
+  editor.loadImage('photo.jpg')
+  editor.rotate(90)
+  editor.applyFilter('brightness', 1.2)
+&lt;/script&gt;</code-block>
+      </section>
 
-  <div class="demo-section">
-    <h3>Custom Drop Zone Message</h3>
-    <image-editor>
-      <p style="font-size:1.25rem;">📸 Drag your photo here!</p>
-    </image-editor>
-  </div>
+      <section id="crop" class="demo-section">
+        <h2>Locked Aspect Ratio</h2>
+        <p class="demo-description">
+          Lock the crop tool to a specific ratio with the <code>aspect-ratio</code> attribute. Common values: <code>16:9</code>, <code>4:3</code>, <code>1:1</code>.
+        </p>
+        <image-editor aspect-ratio="16:9"></image-editor>
+        <code-block language="html" class="demo-code">&lt;image-editor aspect-ratio="16:9"&gt;&lt;/image-editor&gt;</code-block>
+      </section>
 
-  <div class="demo-section">
-    <h3>Locked to 16:9 Crop</h3>
-    <image-editor aspect-ratio="16:9"></image-editor>
-  </div>
+      <section id="constrained" class="demo-section">
+        <h2>Constrained Size</h2>
+        <p class="demo-description">
+          Set explicit <code>width</code> and <code>height</code> to constrain the editor dimensions.
+        </p>
+        <image-editor width="400" height="300"></image-editor>
+        <code-block language="html" class="demo-code">&lt;image-editor width="400" height="300"&gt;&lt;/image-editor&gt;</code-block>
+      </section>
 
-  <div class="demo-section">
-    <h3>Custom Theme</h3>
-    <image-editor
-      style="
-        --image-editor-accent-color: #8b5cf6;
-        --image-editor-toolbar-bg: #faf5ff;
-        --image-editor-border-color: #c4b5fd;
-        --image-editor-button-active-color: #8b5cf6;
-      "
-    ></image-editor>
-  </div>
+      <section id="custom-dropzone" class="demo-section">
+        <h2>Custom Drop Zone</h2>
+        <p class="demo-description">
+          Use slotted content to customize the drop zone message shown before an image is loaded.
+        </p>
+        <image-editor>
+          <p style="font-size: 1.25rem; text-align: center; padding: 2rem; margin: 0; color: var(--text-secondary);">Drop your photo here to start editing</p>
+        </image-editor>
+        <code-block language="html" class="demo-code">&lt;image-editor&gt;
+  &lt;p&gt;Drop your photo here to start editing&lt;/p&gt;
+&lt;/image-editor&gt;</code-block>
+      </section>
 
-</body>
+      <section id="theming" class="demo-section">
+        <h2>Custom Theming</h2>
+        <p class="demo-description">
+          Use CSS custom properties to create custom themes. Over 35 properties are available.
+        </p>
+        <style>
+          .purple-editor {
+            --image-editor-accent-color: #8b5cf6;
+            --image-editor-toolbar-bg: #faf5ff;
+            --image-editor-border-color: #c4b5fd;
+            --image-editor-button-active-color: #8b5cf6;
+            --image-editor-crop-border: #8b5cf6;
+            --image-editor-crop-handle-color: #8b5cf6;
+            --image-editor-focus-color: #8b5cf6;
+          }
+        </style>
+        <image-editor class="purple-editor" mode="light"></image-editor>
+        <code-block language="css" class="demo-code">.purple-editor {
+  --image-editor-accent-color: #8b5cf6;
+  --image-editor-toolbar-bg: #faf5ff;
+  --image-editor-border-color: #c4b5fd;
+  --image-editor-button-active-color: #8b5cf6;
+  --image-editor-crop-border: #8b5cf6;
+  --image-editor-crop-handle-color: #8b5cf6;
+  --image-editor-focus-color: #8b5cf6;
+}
+
+&lt;image-editor class="purple-editor" mode="light"&gt;&lt;/image-editor&gt;</code-block>
+      </section>
+
+      <section id="rotate" class="demo-section">
+        <h2>All Editing Features</h2>
+        <ul style="display: grid; gap: 0.25rem; padding-left: 1.5rem;">
+          <li>Crop with draggable handles and aspect ratio presets</li>
+          <li>Rotate 90° left/right</li>
+          <li>Flip horizontal and vertical</li>
+          <li>Resize to exact dimensions with aspect lock</li>
+          <li>Brightness, contrast, saturation, blur, grayscale, sepia filters</li>
+          <li>Undo/redo with configurable history depth</li>
+          <li>Zoom and pan with scroll and drag</li>
+          <li>Export as PNG, JPEG, or WebP</li>
+          <li>Drag-and-drop or file picker image input</li>
+          <li>Light/dark mode with auto-detection</li>
+          <li>Full keyboard accessibility</li>
+          <li>35+ CSS custom properties for theming</li>
+        </ul>
+      </section>
+
+      <section id="filters" class="demo-section">
+        <h2>Programmatic Filters</h2>
+        <p class="demo-description">
+          Apply filters via JavaScript for batch processing or custom UI workflows.
+        </p>
+        <code-block language="javascript" class="demo-code">const editor = document.querySelector('image-editor')
+await editor.loadImage('photo.jpg')
+
+// Adjust filters
+editor.applyFilter('brightness', 1.3)
+editor.applyFilter('contrast', 1.1)
+editor.applyFilter('saturate', 0.8)
+
+// Export the result
+const blob = await editor.getBlob('webp', 0.9)
+</code-block>
+      </section>
+
+      <section id="undo-redo" class="demo-section">
+        <h2>Undo/Redo History</h2>
+        <p class="demo-description">
+          Every edit is tracked. Control the maximum history depth with the <code>max-history</code> attribute.
+        </p>
+        <code-block language="html" class="demo-code">&lt;!-- Keep up to 100 undo steps --&gt;
+&lt;image-editor max-history="100"&gt;&lt;/image-editor&gt;
+
+&lt;script&gt;
+  const editor = document.querySelector('image-editor')
+  editor.addEventListener('history-change', (e) =&gt; {
+    console.log('Can undo:', e.detail.canUndo)
+    console.log('Can redo:', e.detail.canRedo)
+    console.log('History length:', e.detail.length)
+  })
+&lt;/script&gt;</code-block>
+      </section>
+
+      <section id="zoom" class="demo-section">
+        <h2>Zoom &amp; Pan Controls</h2>
+        <p class="demo-description">
+          Control zoom programmatically. Scroll to zoom, drag to pan in the editor.
+        </p>
+        <code-block language="javascript" class="demo-code">const editor = document.querySelector('image-editor')
+
+// Zoom to 200%
+editor.zoomTo(2)
+
+// Fit image to workspace
+editor.zoomToFit()
+
+// Listen for zoom changes
+editor.addEventListener('zoom-change', (e) =&gt; {
+  console.log('Zoom:', e.detail.level)
+})</code-block>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        MIT License &middot;
+        <a href="https://github.com/ProfPowell/image-editor" target="_blank" rel="noopener">View on GitHub</a>
+      </p>
+    </footer>
+
+    <script type="module">
+      const src = location.hostname === 'localhost' || location.hostname === '127.0.0.1'
+        ? '/src/image-editor.js'
+        : 'https://unpkg.com/@profpowell/image-editor';
+      import(/* @vite-ignore */ src);
+    </script>
+    <script type="module" src="https://unpkg.com/@profpowell/code-block"></script>
+    <script>
+      // Theme toggle
+      (function() {
+        const toggle = document.querySelector('.theme-toggle');
+        const storageKey = 'image-editor-theme';
+
+        const saved = localStorage.getItem(storageKey);
+        if (saved === 'dark') {
+          document.body.classList.add('dark');
+        }
+
+        toggle?.addEventListener('click', () => {
+          document.body.classList.toggle('dark');
+          const isDark = document.body.classList.contains('dark');
+          localStorage.setItem(storageKey, isDark ? 'dark' : 'light');
+        });
+      })();
+    </script>
+  </body>
 </html>
