@@ -170,8 +170,9 @@ main {
 
 .hero-demo {
   max-width: 800px;
-  margin: 2rem auto;
+  margin: 2rem auto 0;
   text-align: left;
+  overflow: hidden;
 }
 
 .hero-actions {
